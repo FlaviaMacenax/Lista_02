@@ -2,70 +2,66 @@
     $msg = '';
     $erro = 0;
     $botao = '';
-    $num = 1;
+    $n='';
     $fat='';
-    $media = '';
+    $a = '';
     $res = '';
     $p='';
-    $a= '';
+    $c='';
+
     
 
     if(isset($_POST["calcular"])){
         $botao = $_POST["calcular"];
 
         // validação de campo
-        if($erro == 0 && isset($_POST["fatorial"]) && !empty($_POST["fatorial"])){
-            $fat = $_POST["fatorial"];
-        }else{
+        if($erro == 0 && isset($_POST["n"]) && !empty($_POST["n"])){
+            $n = $_POST["n"];}
+
+        else{
             $erro = 1;
             $msg = "Digite um número válido.";}
-            if(isset($_POST["p"]) && !empty($_POST["p"])){
+
+            if($erro == 0 && isset($_POST["p"]) && !empty($_POST["p"])){
                 $p = $_POST["p"];}
-           // }else{
-                //$erro = 1;
-               // $msg = "Digite um número válido.";}
+
+            else{
+                $erro = 1;
+               $msg = "Digite um número válido.";}
  
-        if($erro == 0){ //se não houver erro executa a operação de media aritimetica
+        if($erro == 0){
             
-            // se o tipo da media for o media1, a função mediaAritimetica como parametro das notas sera chamada
-            //media1 servirar de valor para o radio
-           if($_POST["tipoMedia"] == "media1"){
-             $num = fatorial($num, $fat);
-            }
-            
-            $res = "O valor da média é " . $num;
 
             if($_POST["tipoMedia"] == "media2"){
-                $num = fatorial($num, $fat);
-                $media = arranjo($num, $fat, $p);
+                $a = arranjo($n, $p);
+               }
+
+               $res = "O valor da média é " . $a;
+            
+               if($_POST["tipoMedia"] == "media3"){
+                $a = combinacao($n, $p);
                }
                
-               $res = "O valor da média é " . $media;
- }
-}
-// declarando a função mediaAritimetica
-//não entendo o pq da declaracao da função aparecer dps da execução da função, considerando que os codigos são lidos em ordem. 
-//suponho que seja executada de modo independente, o lugar onde ela se encontra no cod n faz diferença
-// Caso seja fatorial de 0
+               $res = "O valor da média é " . $a;
+ }}
+                
+    
 
-// Calculando o fatorial
-
-
-function fatorial($num, $fat){
-  while ($fat>1){
-  $num=$num*$fat;
-    $fat--;
-  }
-echo  "resultado " .$num;
+function fatorial($fat){
+        if ($fat < 0 )
+            return 'Nao e possivel calcular fatorial de numero negativo ou decimal.';
+        if ($fat == 0 || $fat == 1)
+            return 1;
+        return $fat * fatorial($fat - 1);
     }
-
-    function arranjo($num,$p,$fat){
-
-        $media= (fatorial($num, $fat))/($fat-$p);
-      
-        return $media;
+    function arranjo($n, $p){
+      return  $a= fatorial($n)/ (fatorial($n-$p));
     }
- 
+    function combinacao($n, $p){
+        return  $c= fatorial($n)/ (fatorial($p)*fatorial($n-$p));
+      }
+
+
 
 ?>
 
@@ -94,22 +90,21 @@ echo  "resultado " .$num;
             </tr>
         <?php } ?>
         <tr>
-            <td colspan="2"><h1>Cálculo das Médias</h1></td>
+            <td colspan="2"><h1>Cálculo de Probabilidade</h1></td>
         </tr>
         <tr>
             <td colspan="2" class="tmedia">
-                <input type="radio" name="tipoMedia" value="media1" checked> Fatorial<br><!--Corresponde a media aritimetica que é relacionada com a logica em php atraves do value-->
                 <input type="radio" name="tipoMedia" value="media2"> Arranjo<br><!--Corresponde a media ponderada que é relacionada com a logica em php atraves do value-->
                 <input type="radio" name="tipoMedia" value="media3"> Combinação<br><!--Corresponde a media harmonica que é relacionada com a logica em php atraves do value-->
 
             </td>
         </tr>
         <tr>
-            <td><label for="lb1" >Nota 1: </td>
-            <td><input type="number" name="fatorial" value="<?php echo $fat ?>"> </td>
+            <td><label for="lb1" >Elementos: </td>
+            <td><input type="number" name="n" value="<?php echo $n ?>"> </td>
         </tr>
         <tr>
-            <td><label for="lb1" >Informe o número de agrupamentos: </td>
+            <td><label for="lb1" >Agrupamentos: </td>
             <td><input type="number" name="p" value="<?php echo $p ?>"> </td>
         </tr>
         <tr>
