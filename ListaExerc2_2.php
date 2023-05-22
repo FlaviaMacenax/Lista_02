@@ -4,11 +4,10 @@
     $botao = '';
     $n='';
     $fat='';
-    $a = '';
+    $r = '';
     $res = '';
     $p='';
     $c='';
-    $r;
 
     
 
@@ -33,21 +32,21 @@
         if($erro == 0){
             
 
-            if($_POST["tipoMedia"] == "media2"){
-                $a = arranjo($n, $p);
+            if($_POST["tipo"] == "t2"){
+                $r = arranjo($n, $p);
                }
 
-               $res =$r;
+               $res = " " .  prettify_numbers( $r, 2 );;
             
-               if($_POST["tipoMedia"] == "media3"){
-                $a = combinacao($n, $p);
+               if($_POST["tipo"] == "t3"){
+                $r = combinacao($n, $p);
                }
                
-               $res =$r;
+               $res = " " .  prettify_numbers( $r, 2 );;
  }}
                 
     
-
+  // criando função fatorial
 function fatorial($fat){
         if ($fat < 0 )
             return 'Nao e possivel calcular fatorial de numero negativo ou decimal.';
@@ -55,68 +54,77 @@ function fatorial($fat){
             return 1;
         return $fat * fatorial($fat - 1);
     }
+      // criando função arranjo
     function arranjo($n, $p){
-      return  $a= fatorial($n)/ (fatorial($n-$p));
+      return  $r= fatorial($n)/ (fatorial($n-$p));
     }
+      // criando função combinação
     function combinacao($n, $p){
-        return  $c= fatorial($n)/ (fatorial($p)*fatorial($n-$p));
+        return  $r= fatorial($n)/ (fatorial($p)*fatorial($n-$p));
       }
-   // O símbolo
-   $simbol = null;
+        // função para lidar com números muito grandes
+      function prettify_numbers ( $r = '0', $decimals = 2, $int_only = false ) {
+      
+        $r = (string)$r;
+        
+        // O símbolo
+        $simbol = null;
     
-   // yotta: 1000000000000000000000000
-   if ( $r > '99999999999999999999999' ) {
-       $r = bcdiv( $r, '1000000000000000000000000', $decimals);
-       $simbol = 'Y';
-   } 
-   
-   // Zetta: 1000000000000000000000
-   elseif ( $r > '999999999999999999999' ) {
-       $r = bcdiv( $r, '1000000000000000000000', $decimals);
-       $simbol = 'Z';
-   }
-   
-   // Exa : 1000000000000000000
-   elseif ( $r > '999999999999999999' ) {
-       $r = bcdiv( $r, '1000000000000000000', $decimals);
-       $simbol = 'E';
-   }
-
-   // Peta : 1000000000000000
-   elseif ( $r > '999999999999999' ) {
-       $r = bcdiv( $r, '1000000000000000', $decimals);
-       $simbol = 'P';
-   }
-
-   // Tera : 1000000000000
-   elseif ( $r > '999999999999' ) {
-       $r = bcdiv( $r, '1000000000000', $decimals);
-       $simbol = 'T';
-   }
-
-   // Tera : 1000000000
-   elseif ( $r > '999999999' ) {
-       $r = bcdiv( $r, '1000000000', $decimals);
-       $simbol = 'G';
-   }
-
-   // Mega : 1000000
-   elseif ( $r > '999999' ) {
-       $r = bcdiv( $r, '1000000', $decimals);
-       $simbol = 'M';
-   }
-
-   // Kilo : 1000
-   elseif ( $r > '999' ) {
-       $r = bcdiv( $r, '1000', $decimals);
-       $simbol = 'k';
-   }
-   
-   // Retorna apenas o número inteiro
-   if ( $int_only ) return (int)$r . $simbol;
-
-   // Retorna o número e o símbolo
-   return $r . $simbol;
+        // yotta: 1000000000000000000000000
+        if ( $r > '99999999999999999999999' ) {
+            $r = bcdiv( $r, '1000000000000000000000000', $decimals);
+            $simbol = 'Y';
+        } 
+        
+        // Zetta: 1000000000000000000000
+        elseif ( $r > '999999999999999999999' ) {
+            $r = bcdiv( $r, '1000000000000000000000', $decimals);
+            $simbol = 'Z';
+        }
+        
+        // Exa : 1000000000000000000
+        elseif ( $r > '999999999999999999' ) {
+            $r = bcdiv( $r, '1000000000000000000', $decimals);
+            $simbol = 'E';
+        }
+    
+        // Peta : 1000000000000000
+        elseif ( $r > '999999999999999' ) {
+            $r = bcdiv( $r, '1000000000000000', $decimals);
+            $simbol = 'P';
+        }
+    
+        // Tera : 1000000000000
+        elseif ( $r > '999999999999' ) {
+            $r = bcdiv( $r, '1000000000000', $decimals);
+            $simbol = 'T';
+        }
+    
+        // Tera : 1000000000
+        elseif ( $r > '999999999' ) {
+            $r = bcdiv( $r, '1000000000', $decimals);
+            $simbol = 'G';
+        }
+    
+        // Mega : 1000000
+        elseif ( $r > '999999' ) {
+            $r = bcdiv( $r, '1000000', $decimals);
+            $simbol = 'M';
+        }
+    
+        // Kilo : 1000
+        elseif ( $r > '999' ) {
+            $r = bcdiv( $r, '1000', $decimals);
+            $simbol = 'k';
+        }
+        
+        // Retorna apenas o número inteiro
+        if ( $int_only ) return (int)$r . $simbol;
+    
+        // Retorna o número e o símbolo
+        return $r . $simbol;
+    }
+    
 
 
 ?>
@@ -136,7 +144,7 @@ function fatorial($fat){
     </style>
 </head>
 <body>
-<form action="ListaExerc2_2.php" method="post">
+<form action="ExercLista2_2.php" method="post">
     <div class="main">
     <table>
         <!-- Se o erro for difente de 0 (caso tenha erro) exibir uma mensagem-->
@@ -150,9 +158,8 @@ function fatorial($fat){
         </tr>
         <tr>
             <td colspan="2" class="tmedia">
-                <input type="radio" name="tipoMedia" value="media2"> Arranjo<br><!--Corresponde a media ponderada que é relacionada com a logica em php atraves do value-->
-                <input type="radio" name="tipoMedia" value="media3"> Combinação<br><!--Corresponde a media harmonica que é relacionada com a logica em php atraves do value-->
-
+                <input type="radio" name="tipo" value="t2" checked> Arranjo<br>
+                <input type="radio" name="tipo" value="t3"> Combinação<br>
             </td>
         </tr>
         <tr>
